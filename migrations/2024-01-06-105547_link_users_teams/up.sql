@@ -1,0 +1,5 @@
+ALTER TABLE users 
+ADD CONSTRAINT fk_teams
+FOREIGN KEY (team_name)
+REFERENCES teams(name)
+ON DELETE CASCADE;

@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: api
+    image: rustapi:1.0.0
+    environment:
+      - PORT=4444
+      - HOST=0.0.0.0
+      - RUST_BACKTRACE=full
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/rustapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4444:4444
+    depends_on:
+      - db
+    networks:
+      rust-api:
+
+  db:
+    container_name: db
+    image: postgres:13
+    ports:
+      - 5432:5432
+    env_file:
+      - .env.docker
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      rust-api:
+
+volumes:
+  pgdata: {}
+
+networks:
+  rust-api:
