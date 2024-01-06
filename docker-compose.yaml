@@ -4,17 +4,13 @@ services:
   api:
     container_name: api
     image: rustapi:1.0.0
-    environment:
-      - PORT=4444
-      - HOST=0.0.0.0
-      - RUST_BACKTRACE=full
-      - ENVIRONMENT=production
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/rustapi
+    env_file:
+      - .env.docker.api
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 4444:4444
+      - ${PORT}:${PORT}
     depends_on:
       - db
     networks:
@@ -26,7 +22,7 @@ services:
     ports:
       - 5432:5432
     env_file:
-      - .env.docker
+      - .env.docker.db
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:

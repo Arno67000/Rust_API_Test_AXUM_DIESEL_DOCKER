@@ -1,4 +1,4 @@
-# SIMPLE RUST API _ POSTGRES _ SQLX
+# RUST API - POSTGRES - AXUM - DIESEL -- (Dockerized)
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ For the api to work properly, the database must be initialized by migrations.
 To run the migrations before starting the app :
 
 - install diesel-cli : `cargo install diesel_cli --no-default-features --features postgres`
-- make sure to transform the `.env.example` file to `.env` & `.env.docker.example` file to `.env.docker` & fill up the required values
+- make sure to transform the `.env.example` file to `.env` & `.env.docker.*.example` file to `.env.docker.*` & fill up the required values
 - make sure the database is initialized locally or use docker: `docker compose up db -d`
 - run `diesel migration run`
 
@@ -80,3 +80,8 @@ docker compose build
 # run both the database & the api
 docker compose up -d
 ```
+
+## API live tests :
+
+I added a `.http` directory containing examples of the available calls to test the api once its running.
+You can call the API from the .http files if you're on VsCode & if you have the Rest Client extension installed.
