@@ -3,7 +3,6 @@ use diesel::prelude::*;
 
 #[derive(Debug, Clone)]
 pub struct DB {
-    // pub pg: PgConnection,
     pub url: String,
 }
 

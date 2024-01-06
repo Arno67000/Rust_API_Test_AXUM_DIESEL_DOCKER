@@ -19,7 +19,6 @@ use crate::providers::database::DB;
 async fn main() {
     // Getting environment
     let env: Environment = Environment::get();
-
     println!("{:?}", env);
 
     // Setting up logging
@@ -28,7 +27,7 @@ async fn main() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    let db: DB = DB::new(env.database_url);
+    let db = DB::new(env.database_url);
 
     // Creating app
     let app = Router::new()
@@ -39,16 +38,14 @@ async fn main() {
 
     let addr = SocketAddr::from((env.host, env.port));
     let listener = match tokio::net::TcpListener::bind(&addr).await {
-        Ok(l) => {
-            println!(
-                "{}{}",
-                "Server ready & listening on : ".blue().italic(),
-                addr.to_string().blue().italic()
-            );
-            l
-        }
+        Ok(l) => l,
         Err(e) => panic!("{}{:?}", "TCP Listener bind failed : ".red(), e),
     };
+    println!(
+        "{}{}",
+        "Server ready & listening on : ".blue().italic(),
+        addr.to_string().blue().italic()
+    );
 
     let service = axum::serve(listener, app.into_make_service());
 

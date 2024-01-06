@@ -1,7 +1,8 @@
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::{providers::database::DB, repositories::repo_model::Repo};
+use crate::providers::database::DB;
+use crate::repositories::repo_model::Repo;
 
 #[derive(Debug, Serialize, Deserialize, Queryable, Selectable)]
 #[diesel(table_name = crate::schema::users)]

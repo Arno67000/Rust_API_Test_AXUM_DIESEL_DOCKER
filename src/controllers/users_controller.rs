@@ -1,10 +1,4 @@
-use axum::{
-    extract,
-    extract::State,
-    http::{self, StatusCode},
-    response::IntoResponse,
-    Json,
-};
+use axum::{extract, extract::State, http::StatusCode, response::IntoResponse, Json};
 
 use crate::{
     providers::database::DB,
@@ -35,7 +29,7 @@ pub async fn create_user(
     match Repo::<User>::create(db, payload).await {
         Ok(user) => (StatusCode::CREATED, Json(user)).into_response(),
         Err(e) => (
-            http::StatusCode::INTERNAL_SERVER_ERROR,
+            StatusCode::INTERNAL_SERVER_ERROR,
             format!("Internal server error : {:?}", e),
         )
             .into_response(),

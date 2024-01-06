@@ -21,7 +21,6 @@ impl Environment {
     }
 
     pub fn get() -> Environment {
-        println!("{:?}", env::vars().collect::<Vec<_>>());
         Environment::init();
 
         let mut host = env::var("HOST").expect("Missing HOST");
