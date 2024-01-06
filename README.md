@@ -22,7 +22,7 @@ For more infos on Diesel ORM check out the [Diesel documentation](https://diesel
 _Adding migrations_:
 
 ```bash
-diesel migration create <migration-name>
+diesel migration generate <migration-name>
 ```
 
 _Running migrations_:
