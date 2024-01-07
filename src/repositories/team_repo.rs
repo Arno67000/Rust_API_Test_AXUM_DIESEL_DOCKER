@@ -1,6 +1,6 @@
 use diesel::prelude::*;
 
-use crate::models::player::PlayerDAO;
+use crate::models::player::Player;
 use crate::models::team::{Team, TeamDAO};
 use crate::providers::database::DB;
 use crate::repositories::repo_model::Repo;
@@ -22,7 +22,7 @@ impl Repo<Team> {
             .map(|t| {
                 let players = match players::table
                     .filter(team_name.eq(&t.name))
-                    .select(PlayerDAO::as_select())
+                    .select(Player::as_select())
                     .load(conn)
                 {
                     Ok(players) => players,

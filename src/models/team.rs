@@ -1,7 +1,7 @@
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use super::player::PlayerDAO;
+use super::player::Player;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Team {
@@ -18,7 +18,7 @@ pub struct TeamDAO {
 }
 
 impl TeamDAO {
-    pub fn into_team(self, players: Vec<PlayerDAO>) -> Team {
+    pub fn into_team(self, players: Vec<Player>) -> Team {
         Team {
             name: self.name,
             nb_player: players.len().try_into().unwrap_or_default(),
