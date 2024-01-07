@@ -1,38 +1,22 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
-    _sqlx_migrations (version) {
-        version -> Int8,
-        description -> Text,
-        installed_on -> Timestamptz,
-        success -> Bool,
-        checksum -> Bytea,
-        execution_time -> Int8,
+    players (nickname) {
+        #[max_length = 255]
+        nickname -> Varchar,
+        score -> Int8,
+        #[max_length = 255]
+        team_name -> Varchar,
     }
 }
 
 diesel::table! {
-    teams (id) {
-        id -> Int8,
+    teams (name) {
         #[max_length = 255]
         name -> Varchar,
     }
 }
 
-diesel::table! {
-    users (id) {
-        id -> Int8,
-        #[max_length = 255]
-        nickname -> Varchar,
-        level -> Int8,
-        score -> Int8,
-        #[max_length = 255]
-        team_name -> Nullable<Varchar>,
-    }
-}
+diesel::joinable!(players -> teams (team_name));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    _sqlx_migrations,
-    teams,
-    users,
-);
+diesel::allow_tables_to_appear_in_same_query!(players, teams,);

@@ -3,30 +3,35 @@
 # Don't forget to adapt the url (host & port) to your environment
 
 ################################################################
-# USERS
+# TEAMS
 ################################################################
 
 ############################################
-# get users
+# get teams
 ############################################
-GET http://localhost:4444/users HTTP/1.1
+
+GET http://localhost:4444/teams HTTP/1.1
+
+
 
 ############################################
-# post user
+# post team
 ############################################
-POST http://localhost:4444/users HTTP/1.1
+
+POST http://localhost:4444/teams HTTP/1.1
 Content-Type: application/json
 
 {
-    "nickname": "testman"
+    "name": "Ateam"
 }
 
 ############################################
 # post user fails with 422
 ############################################
-POST http://localhost:4444/users HTTP/1.1
+
+POST http://localhost:4444/teams HTTP/1.1
 Content-Type: application/json
 
 {
-    "nickname": 34
+    "name": 34
 }

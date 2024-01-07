@@ -14,8 +14,10 @@ mod repositories;
 mod schema;
 
 use crate::config::environment::Environment;
-use crate::controllers::users_controller::{create_user, get_all_users};
 use crate::providers::database::DB;
+
+use crate::controllers::players_controller::{create_player, list_players};
+use crate::controllers::teams_controller::{create_team, get_all_teams};
 
 #[tokio::main]
 async fn main() {
@@ -34,7 +36,8 @@ async fn main() {
     // Creating app
     let app = Router::new()
         .route("/", get(welcome()))
-        .route("/users", get(get_all_users).post(create_user))
+        .route("/players", get(list_players).post(create_player))
+        .route("/teams", get(get_all_teams).post(create_team))
         .with_state(db)
         .layer(ServiceBuilder::new().layer(TraceLayer::new_for_http()));
 

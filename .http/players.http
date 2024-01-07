@@ -1,0 +1,52 @@
+# To use these .http files to test the API you need VSCODE & REST Client extension
+
+# Don't forget to adapt the url (host & port) to your environment
+
+################################################################
+# PLAYERS
+################################################################
+
+############################################
+# get players
+############################################
+
+GET http://localhost:4444/players HTTP/1.1
+
+
+
+############################################
+# post player -> 400 if already exists -> 201
+############################################
+
+POST http://localhost:4444/players HTTP/1.1
+Content-Type: application/json
+
+{
+    "nickname": "testman"
+}
+
+
+############################################
+# post player -> 400 if team does not exist -> 201
+############################################
+
+POST http://localhost:4444/players HTTP/1.1
+Content-Type: application/json
+
+{
+    "nickname": "toto",
+    "team_name": "Ateam"
+}
+
+
+
+############################################
+# post player fails with 422
+############################################
+
+POST http://localhost:4444/players HTTP/1.1
+Content-Type: application/json
+
+{
+    "nickname": 34
+}
