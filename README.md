@@ -37,6 +37,12 @@ _Testing migrations_:
 diesel migration redo
 ```
 
+_Updating diesel schemas_:
+
+```bash
+diesel setup # DATABASE_URL must be in environment for this command
+```
+
 ## APP
 
 _DATABASE MUST BE RUNNING for the api to work properly. You can set it up locally or use the dockerized one running `docker compose up db -d`_
