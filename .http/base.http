@@ -5,6 +5,15 @@
 ############################################
 #  Entrypoint : will answer with a welcome message
 ############################################
+
 GET http://localhost:4444 HTTP/1.1
+
+
+
+############################################
+#  Entrypoint : will answer 404 on /***unknown***
+############################################
+
+GET http://localhost:4444/unknownEndPoint HTTP/1.1
 
 
