@@ -1,4 +1,2 @@
 target/
 .env
-.env.docker.api
-.env.docker.db

@@ -5,9 +5,9 @@ services:
     container_name: api
     image: rustapi:1.0.0
     env_file:
-      - .env.docker.api
+      - .env
     build:
-      context: .
+      context: ../
       dockerfile: Dockerfile
     ports:
       - ${PORT}:${PORT}
@@ -22,7 +22,7 @@ services:
     ports:
       - 5432:5432
     env_file:
-      - .env.docker.db
+      - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
