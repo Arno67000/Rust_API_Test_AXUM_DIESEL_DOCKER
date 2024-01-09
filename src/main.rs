@@ -18,6 +18,7 @@ use crate::providers::database::DB;
 
 use crate::controllers::players_controller::{create_player, list_players};
 use crate::controllers::teams_controller::{create_team, get_all_teams};
+use crate::providers::migrations::run_migration;
 
 #[tokio::main]
 async fn main() {
@@ -32,6 +33,9 @@ async fn main() {
         .init();
 
     let db = DB::new(env.database_url);
+
+    // Running pending migrations
+    run_migration(&db);
 
     // Creating app
     let app = Router::new()

@@ -11,8 +11,8 @@ For the api to work properly, the database must be initialized by migrations.
 To run the migrations before starting the app :
 
 - install diesel-cli : `cargo install diesel_cli --no-default-features --features postgres`
-- make sure to transform the `.env.example` file to `.env` & `.env.docker.*.example` file to `.env.docker.*` & fill up the required values
-- make sure the database is initialized locally or use docker: `docker compose up db -d`
+- make sure to transform the `.env.example` file to `.env` & `/docker.env.example` file to `/docker.env` & fill up the required values
+- make sure the database is initialized locally or use docker: `docker compose -f /docker/docker-compose.yaml up db -d`
 - run `diesel migration run`
 
 For more infos on Diesel ORM check out the [Diesel documentation](https://diesel.rs/)
@@ -45,7 +45,7 @@ diesel setup # DATABASE_URL must be in environment for this command
 
 ## APP
 
-_DATABASE MUST BE RUNNING for the api to work properly. You can set it up locally or use the dockerized one running `docker compose up db -d`_
+_DATABASE MUST BE RUNNING for the api to work properly. You can set it up locally or use the dockerized one running `docker compose -f /docker/docker-compose.yaml up db -d`_
 
 ```bash
 # START
@@ -74,17 +74,17 @@ cargo fmt
 
 _If you added some migrations, they must run before deploying :_
 
-- run the database : `docker compose up db -d`
+- run the database : `docker compose up -f /docker/docker-compose.yaml db -d`
 - run migrations: `diesel migration run`
 
 **Run the containers :**
 
 ```bash
 # Update docker image if you changed something in the code
-docker compose build
+docker compose -f /docker/docker-compose.yaml build
 
 # run both the database & the api
-docker compose up -d
+docker compose -f /docker/docker-compose.yaml up -d
 ```
 
 ## API live tests :
