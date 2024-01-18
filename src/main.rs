@@ -1,4 +1,5 @@
-use axum::{routing::get, Router};
+use axum::routing::get;
+use axum::Router;
 use colored::Colorize;
 use std::net::SocketAddr;
 use tower::ServiceBuilder;
@@ -11,14 +12,14 @@ mod handlers;
 mod models;
 mod providers;
 mod repositories;
+mod routers;
 mod schema;
 
 use crate::config::environment::Environment;
 use crate::providers::database::DB;
 
-use crate::controllers::players_controller::{create_player, list_players};
-use crate::controllers::teams_controller::{create_team, get_all_teams};
 use crate::providers::migrations::run_migration;
+use crate::routers::{players_router, teams_router};
 
 #[tokio::main]
 async fn main() {
@@ -40,8 +41,8 @@ async fn main() {
     // Creating app
     let app = Router::new()
         .route("/", get(welcome()))
-        .route("/players", get(list_players).post(create_player))
-        .route("/teams", get(get_all_teams).post(create_team))
+        .nest("/players", players_router::routes())
+        .nest("/teams", teams_router::routes())
         .with_state(db)
         .layer(ServiceBuilder::new().layer(TraceLayer::new_for_http()));
 

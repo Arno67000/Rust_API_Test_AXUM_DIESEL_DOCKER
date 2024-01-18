@@ -33,6 +33,25 @@ impl Repo<Team> {
             .collect::<Vec<Team>>())
     }
 
+    pub async fn get_one(db: DB, team: TeamDAO) -> Result<Team, diesel::result::Error> {
+        use crate::schema::players;
+        use crate::schema::players::team_name;
+        use crate::schema::teams::dsl::*;
+        let conn = &mut db.db_connect();
+
+        let t: TeamDAO = teams.filter(name.eq(&team.name)).first::<TeamDAO>(conn)?;
+
+        let players = match players::table
+            .filter(team_name.eq(&t.name))
+            .select(Player::as_select())
+            .load(conn)
+        {
+            Ok(players) => players,
+            Err(_e) => vec![],
+        };
+        Ok(t.into_team(players))
+    }
+
     pub async fn create(db: DB, team: TeamDAO) -> Result<Team, diesel::result::Error> {
         use crate::schema::teams;
         let conn = &mut db.db_connect();
