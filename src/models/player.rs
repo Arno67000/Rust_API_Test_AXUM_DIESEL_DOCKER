@@ -26,3 +26,13 @@ impl CreatePlayerDTO {
         }
     }
 }
+
+#[derive(Serialize, Deserialize, Queryable)]
+pub struct UpdateScoreDTO {
+    pub score: i64,
+}
+
+#[derive(Serialize, Deserialize, Queryable)]
+pub struct UpdateTeamDTO {
+    pub team_name: String,
+}
